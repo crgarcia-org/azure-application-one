@@ -1,0 +1,109 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: demoapp-storage-class
+provisioner: blob.csi.azure.com
+parameters:
+  skuName: Standard_ZRS
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: demoapp-storage-claim
+  annotations:
+        volume.beta.kubernetes.io/storage-class: demoapp-storage-class
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: demoapp-storage-class
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp-app
+  template:
+    metadata:
+      labels:
+        app: demoapp-app
+    spec:
+      containers:
+      - name: demoapp
+        image: crgaraksadvanceacr.azurecr.io/demoapp:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - mountPath: "/mnt/demoappfiles"
+              name: volume
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: demoapp-storage-claim
+      imagePullSecrets:
+      - name: crgaraksadvanceacr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapp-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: demoapp-app
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp2-app
+  template:
+    metadata:
+      labels:
+        app: demoapp2-app
+    spec:
+      containers:
+      - name: demoapp2
+        image: crgaraksadvanceacr.azurecr.io/demoapp:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - mountPath: "/mnt/demoappfiles"
+              name: volume
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: demoapp-storage-claim
+      imagePullSecrets:
+      - name: crgaraksadvanceacr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapp2-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: demoapp2-app
