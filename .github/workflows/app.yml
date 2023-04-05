@@ -43,10 +43,10 @@ on:
     - app/**
 
 env:
-  AZURE_CONTAINER_REGISTRY: "crgaraksadvanceacr"
+  AZURE_CONTAINER_REGISTRY: "crgarciaorgapponeacr"
   CONTAINER_NAME: "demoapp"
-  RESOURCE_GROUP: "crgar-aks-advance-rg"
-  CLUSTER_NAME: "crgar-aks-advance-aks"
+  RESOURCE_GROUP: "crgar-crgarciaorg-appone-rg"
+  CLUSTER_NAME: "crgar-crgarciaorg-appone-aks"
   DEPLOYMENT_MANIFEST_PATH: "app/aks-deployments/demoapp.yaml"
 
 jobs:

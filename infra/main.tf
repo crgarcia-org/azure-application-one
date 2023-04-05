@@ -1,5 +1,5 @@
 locals {
-  prefix   = "crgar-aks-advance"
+  prefix   = "crgar-crgarciaorg-appone"
   location = "switzerlandnorth"
 }
 
@@ -11,8 +11,8 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "crgar-aks-advance-terraform-rg"
-    storage_account_name = "crgaraksadvancetfstate"
+    resource_group_name  = "crgar-crgarciaorg-appone-tf-rg"
+    storage_account_name = "crgarciaorgapponetf"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }
@@ -27,7 +27,7 @@ resource "azurerm_resource_group" "spoke_rg" {
 }
 
 module "aks" {
-  source              = "./modules/aks"
+  source              = "https://github.com/crgarcia-org/azure-ccoe-aks/tree/main/aks/v1.0"
   prefix              = local.prefix
   location            = local.location
   resource_group_name = azurerm_resource_group.spoke_rg.name
