@@ -13,7 +13,7 @@ az ad sp create-for-rbac --name "crgar-contosobank-application-one" --role owner
 gh secret set AZURE_CLIENT_ID     --repos crgarcia12/azure-contosobank-application-one --body "<secret>"
 gh secret set AZURE_CLIENT_SECRET --repos crgarcia12/azure-contosobank-application-one --body "<secret>"
 gh secret set AZURE_TENANT_ID     --repos crgarcia12/azure-contosobank-application-one --body "<secret>"
-gh secret set MVP_SUBSCRIPTION    --repos crgarcia12/azure-contosobank-application-one --body "<secret>"
+gh secret set AZURE_SUBSCRIPTION    --repos crgarcia12/azure-contosobank-application-one --body "<secret>"
 
 $AZURECRED = @"
 {
