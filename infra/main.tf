@@ -27,7 +27,7 @@ resource "azurerm_resource_group" "spoke_rg" {
 }
 
 module "aks" {
-  source              = "https://github.com/crgarcia-org/azure-ccoe-aks/tree/main/aks/v1.0"
+  source              = "github.com/crgarcia-org/azure-ccoe-aks/aks/v1.0"
   prefix              = local.prefix
   location            = local.location
   resource_group_name = azurerm_resource_group.spoke_rg.name
