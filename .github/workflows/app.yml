@@ -43,7 +43,7 @@ on:
     - app/**
 
 env:
-  AZURE_CONTAINER_REGISTRY: "crgarciaorgapponeacr"
+  AZURE_CONTAINER_REGISTRY: "crgarcrgarciaorgapponeacr"
   CONTAINER_NAME: "demoapp"
   RESOURCE_GROUP: "crgar-crgarciaorg-appone-rg"
   CLUSTER_NAME: "crgar-crgarciaorg-appone-aks"
